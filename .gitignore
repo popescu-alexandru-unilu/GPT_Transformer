@@ -1,2 +1,41 @@
+# Existing
 init_resources/GPT_model_best.pth
 init_resources/__pycache__/
+
+# Node.js
+/frontend/node_modules
+/frontend/build
+.DS_Store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Java / Maven
+/backend/target
+.mvn/
+*.class
+*.log
+*.jar
+*.war
+*.ear
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.cache
+/ml/models
+
+# OS and Editor
+.DS_Store
+.idea/
+*.swp
+*~

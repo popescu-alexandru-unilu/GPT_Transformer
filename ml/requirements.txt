@@ -1,0 +1,7 @@
+torch
+sentencepiece
+fastapi
+uvicorn
+gunicorn
+pydantic
+numpy

@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # 1. React Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: src/Dockerfile
+    ports:
+      - "3000:80"
+    networks:
+      - app-network
+    depends_on:
+      - backend-java
+
+  # 2. Java Backend
+  backend-java:
+    build:
+      context: ./backend
+      dockerfile: src/Dockerfile
+    ports:
+      - "8081:8080"
+    environment:
+      # Pass the ML service URL to the Java application
+      # 'ml-model' is the service name, which acts as a hostname inside the Docker network
+      ML_SERVICE_URL: http://ml-model:5000
+    networks:
+      - app-network
+    depends_on:
+      - ml-model
+
+  # 3. Python FastAPI ML Service
+  ml-model:
+    build: ./ml
+    ports:
+      - "5000:5000"
+    # For GPU acceleration, install nvidia-docker and uncomment the following 'deploy' block
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
